@@ -1,0 +1,20 @@
+name: SCP
+description: $description
+version: '${version}'
+
+main: me.devec.SCP.SCPlugin
+api-version: '1.21.5'
+load: POSTWORLD
+
+authors: [ devec ]
+
+commands:
+  alphawarhead:
+    description: Gives the player an alpha warhead nuke and detonator
+    permission: SCP.alphawarhead
+    usage: /alphawarhead [player]
+
+permissions:
+  SCP.alphawarhead:
+    description: allows the use of the alphawarhead command
+    default: op
