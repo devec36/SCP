@@ -52,7 +52,7 @@
                         <configuration>
                             <target>
                                 <copy file="${project.build.directory}/${project.build.finalName}.jar"
-                                      tofile="D:/ŠIMUN/minecraftserver/plugins/${project.build.finalName}.jar"
+                                      tofile="D:/ŠIMUN/minecraftserver/1.21.11/plugins/${project.build.finalName}.jar"
                                       overwrite="true"/>
                             </target>
                         </configuration>
@@ -65,9 +65,27 @@
 
         </plugins>
         <resources>
+            <!-- 1. Handle regular configuration text files with filtering enabled -->
+            <!-- We exclude the structures folder here entirely so text-filtering doesn't touch it -->
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
+                <includes>
+                    <include>**/*.yml</include>
+                    <include>**/*.json</include>
+                </includes>
+                <excludes>
+                    <exclude>structures/**</exclude>
+                </excludes>
+            </resource>
+
+            <!-- 2. Safely bundle the entire binary structures folder with filtering disabled -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>structures/**/*.nbt</include>
+                </includes>
             </resource>
         </resources>
     </build>
@@ -77,9 +95,27 @@
             <id>papermc-repo</id>
             <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
+
+        <repository>
+            <id>codemc-releases</id>
+            <url>https://repo.codemc.io/repository/maven-releases/</url>
+        </repository>
+        <repository>
+            <id>codemc-snapshots</id>
+            <url>https://repo.codemc.io/repository/maven-snapshots/</url>
+        </repository>
+
     </repositories>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.github.retrooper</groupId>
+            <artifactId>packetevents-spigot</artifactId>
+            <version>2.12.2</version>
+            <scope>provided</scope>
+        </dependency>
+
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>

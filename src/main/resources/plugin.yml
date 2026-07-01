@@ -1,20 +1,27 @@
 name: SCP
-description: $description
 version: '${version}'
-
 main: me.devec.SCP.SCPlugin
-api-version: '1.21.5'
+api-version: '1.21'
 load: POSTWORLD
-
 authors: [ devec ]
+depend: [ packetevents ]
+description: an SCP Plugin.
+website: https://modrinth.com/project/scp-paper
 
 commands:
   alphawarhead:
     description: Gives the player an alpha warhead nuke and detonator
     permission: SCP.alphawarhead
     usage: /alphawarhead [player]
+  givescp:
+    description: Gives a player a specific SCP item
+    permission: SCP.givescp
+    usage: /givescp <item> [player]
 
 permissions:
   SCP.alphawarhead:
     description: allows the use of the alphawarhead command
+    default: op
+  SCP.givescp:
+    description: Allows the player to give SCP items
     default: op
