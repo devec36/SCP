@@ -1,6 +1,7 @@
 package me.devec.SCP.Alpha_Warhead;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -37,6 +38,11 @@ public class AlphaWarheadCommand implements CommandExecutor, Listener {
     // COMMAND
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
+
+        if(!sender.isOp() && !sender.hasPermission("SCP.alphawarhead")){
+            sender.sendMessage(Component.text("You cannot use this command.", NamedTextColor.RED));
+            return true;
+        }
 
         if (args.length != 1) {
             sender.sendMessage("Usage: /alphawarhead <player>");

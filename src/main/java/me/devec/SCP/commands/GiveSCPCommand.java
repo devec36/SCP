@@ -34,7 +34,7 @@ public class GiveSCPCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (!sender.isOp() && !(sender instanceof org.bukkit.command.ConsoleCommandSender)) {
+        if (!sender.isOp() && !sender.hasPermission("SCP.givescp")) {
             sender.sendMessage(Component.text("You do not have permission to execute this command.", NamedTextColor.RED));
             return true;
         }
