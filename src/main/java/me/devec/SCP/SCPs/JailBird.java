@@ -12,12 +12,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.ShieldMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
@@ -181,10 +179,8 @@ public class JailBird implements Listener {
     private void startCharge(Player player) {
         UUID uuid = player.getUniqueId();
 
-        // FIX: Upgrade step-height to 2 blocks immediately when charging begins
         setStepHeight(player, 2.0);
 
-        // Unequip anything in their offhand (like a shield) to break client-side blocking loops
         ItemStack offhandItem = player.getInventory().getItemInOffHand();
         if (offhandItem != null && offhandItem.getType() != Material.AIR) {
             storedOffhands.put(uuid, offhandItem.clone());
@@ -208,7 +204,7 @@ public class JailBird implements Listener {
                 if (!isJailBird(player.getInventory().getItemInMainHand())) {
                     player.sendActionBar(Component.text("Charge Cancelled").color(NamedTextColor.RED));
 
-                    setStepHeight(player, 0.6); // FIX: Reset step-height on cancel
+                    setStepHeight(player, 0.6);
                     restoreOffhand(player);
                     activeCharges.remove(uuid);
                     cooldowns.put(uuid, System.currentTimeMillis() + 1000L);

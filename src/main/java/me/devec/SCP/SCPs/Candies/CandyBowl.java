@@ -75,7 +75,7 @@ public class CandyBowl implements Listener {
         Bukkit.getScheduler().runTaskTimer(plugin, () -> {
             for (World world : Bukkit.getWorlds()) {
                 long currentTime = world.getTime();
-                Long lastTime = lastWorldTimes.get(world.getUID()); // Fixed: getUID()
+                Long lastTime = lastWorldTimes.get(world.getUID());
 
                 if (lastTime != null) {
                     // If time jumped backward OR hits exactly 0
@@ -96,7 +96,7 @@ public class CandyBowl implements Listener {
                         }
                     }
                 }
-                lastWorldTimes.put(world.getUID(), currentTime); // Fixed: getUID()
+                lastWorldTimes.put(world.getUID(), currentTime);
             }
         }, 1L, 1L);
     }

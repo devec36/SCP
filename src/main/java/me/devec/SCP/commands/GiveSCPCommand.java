@@ -6,7 +6,7 @@ import me.devec.SCP.SCPs.JailBird;
 import me.devec.SCP.SCPs.Candies.CandyBowl;
 import me.devec.SCP.SCPs.PreformanceEnchancer;
 import me.devec.SCP.SCPs.SuperBall;
-import me.devec.SCP.SCPs.Cola; // Imported Cola Module
+import me.devec.SCP.SCPs.Cola;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;

@@ -137,7 +137,6 @@ public class PreformanceEnchancer implements Listener {
                         if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
                             player.sendMessage(Component.text("The structural stimulants create a violent internal detonation!", NamedTextColor.DARK_RED, TextDecoration.BOLD));
 
-                            // Real mechanical explosion (flash, sound, and knockback without world terrain griefing)
                             Location loc = player.getLocation().add(0, 1, 0);
                             loc.getWorld().createExplosion(loc, 3.0f, false, false);
 
@@ -166,7 +165,6 @@ public class PreformanceEnchancer implements Listener {
                 removeAllPerformanceEffects(player);
                 lastDangerStacks.remove(player.getUniqueId());
             }
-            // Removed fixed hardcoded baseline attack modifier here to prevent persistent bypass bugs
         }
     }
 
@@ -229,7 +227,6 @@ public class PreformanceEnchancer implements Listener {
 
         player.sendMessage(Component.text("You feel an intense, competitive hyper-focus take over your body.", NamedTextColor.GREEN, TextDecoration.ITALIC));
         player.playSound(player.getLocation(), Sound.BLOCK_BREWING_STAND_BREW, 1.0f, 1.5f);
-        // Removed flat +100 attack speed injection so modifications only update dynamically
     }
 
     private void startTrackingTask() {
@@ -331,7 +328,6 @@ public class PreformanceEnchancer implements Listener {
                         miningAttr.addModifier(new AttributeModifier(miningModifierKey, miningBonus, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.ANY));
                     }
 
-                    // Dynamically scales attack speed scaling up linearly (+1.5 per stack), then removes cooldown (+100.0) ONLY at Danger 5
                     if (attackAttr != null) {
                         double attackBonus = (dangerStacks == 5) ? 100.0 : dangerStacks * 1.5;
                         attackAttr.addModifier(new AttributeModifier(attackModifierKey, attackBonus, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.ANY));

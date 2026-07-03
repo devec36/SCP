@@ -100,7 +100,6 @@ public class SuperBall implements Listener {
 
         long expireTime = pdc.get(explosionTimeKey, PersistentDataType.LONG);
 
-        // FIX: Broaden the trigger window. If it's expired, explode immediately, cancel the hit processing entirely.
         if (System.currentTimeMillis() >= expireTime) {
             oldSnowball.getWorld().createExplosion(oldSnowball.getLocation(), EXPLOSION_POWER, true, true);
             oldSnowball.remove();
@@ -143,8 +142,6 @@ public class SuperBall implements Listener {
         new BukkitRunnable() {
             @Override
             public void run() {
-                // FIX: If the ball dies because it bounced, this runner terminates safely,
-                // but the NEXT ball's task will instantly pick up the time check.
                 if (!snowball.isValid() || snowball.isDead()) {
                     this.cancel();
                     return;
@@ -175,7 +172,6 @@ public class SuperBall implements Listener {
                 PersistentDataContainer pdc = snowball.getPersistentDataContainer();
                 long expireTime = pdc.getOrDefault(explosionTimeKey, PersistentDataType.LONG, 0L);
 
-                // FIX: Check expiration inside the monitor task BEFORE calculating custom bounce physics
                 if (System.currentTimeMillis() >= expireTime) {
                     snowball.getWorld().createExplosion(snowball.getLocation(), EXPLOSION_POWER, true, true);
                     snowball.remove();
@@ -245,7 +241,6 @@ public class SuperBall implements Listener {
                                Vector blockFaceNormal, double dotProduct, long expireTime, Location referenceLoc) {
         World world = oldSnowball.getWorld();
 
-        // FIX: Final sanity check before spawning a new entity. If it expired right during calculations, explode immediately.
         if (System.currentTimeMillis() >= expireTime) {
             world.createExplosion(referenceLoc, EXPLOSION_POWER, true, true);
             oldSnowball.remove();
